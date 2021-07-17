@@ -18,6 +18,8 @@
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.2",
+    "html-to-text": "^6.0.0",
+    "juice": "^7.0.0",
     "mongoose": "^5.13.2",
     "nodemailer": "^6.6.3",
     "passport": "^0.4.1",

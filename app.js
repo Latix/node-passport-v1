@@ -1,28 +1,23 @@
 const express = require("express");
-const fs = require("fs");
 const app = express();
+const fs = require("fs");
+const path = require("path");
 
-const nodemailer = require('nodemailer');
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  auth: {
-    user: 'kamsikodi@gmail.com',
-    pass: 'pvncckgtseldnigy',
+require('./lib/email/send.js')({
+  from: '"Your Name" <kamsikodi@gmail.com>', // sender address
+  to: "kamsikodi@gmail.com", // list of receivers
+  subject: "Medium @edigleyssonsilva ✔", // Subject line
+  template: "email",
+  templateVars: {
+    username: "Chris"
   },
+  attachments: [
+    {   // stream as an attachment
+      filename: 'file.txt',
+      content: fs.createReadStream(path.join(__dirname, "file.txt"))
+    },
+  ]
 });
-// transporter.verify().then(() => console.log("Crood")).catch(console.error);
-
-let htmlstream = fs.createReadStream("email.html");
-
-transporter.sendMail({
-    from: '"Your Name" <kamsikodi@gmail.com>', // sender address
-    to: "kamsikodi@gmail.com", // list of receivers
-    subject: "Medium @edigleyssonsilva ✔", // Subject line
-    html: htmlstream, // html body
-  }).then(info => {
-    console.log({info});
-  }).catch(console.error);
 
 // Routes
 app.use('/', require('./routes/index'));
